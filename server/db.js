@@ -4,7 +4,7 @@ const Pool = require("pg").Pool;
 const pool = new Pool({
 //user:"postgres",
 //password:"postgres",
-host:process.env.DATABASE_URL,
+connectionString:process.env.DATABASE_URL,
 ssl:true
 //port:5432,
 //database: "perntodo"
