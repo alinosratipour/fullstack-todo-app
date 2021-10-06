@@ -19,7 +19,7 @@ function InputTodo() {
         try {
 
             const body = {description};
-              await fetch("https://polar-tor-57642.herokuapp.com/todos",{
+              await fetch("http://localhost:5000/todos",{
             method:"POST",
             headers:{"Content-type": "application/json"},
             body:JSON.stringify(body)

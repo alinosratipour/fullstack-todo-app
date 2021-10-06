@@ -11,7 +11,7 @@ const updateDescription = async (e) =>{
     e.preventDefault();
 try {
     const body = {description};
-   await fetch(`https://polar-tor-57642.herokuapp.com/${todo.todo_id}`,{
+   await fetch(`http://localhost:5000/todos/${todo.todo_id}`,{
        method: "PUT",
        headers: {"Content-Type": "application/json"},
        body: JSON.stringify(body)
