@@ -2,12 +2,20 @@ const express = require("express");
 const app = express();
 const cors = require("cors");
 const pool = require("./db");
+const path = require("path");
 
 //middelware
 app.use(cors());
 app.use(express.json()); // allows access to req.body 
 
-//ROUTES
+//app.use(express.static("./client/build"))
+
+
+if(process.env.NODE_ENV === "production"){
+    // serve static content
+    // npm run build
+    app.use(express.static(path.join(__dirname, "client/build")))
+}
 
 
 //Create a todos
@@ -84,6 +92,10 @@ app.delete("/todos/:id" , async (req, res)=>{
     }
 });
 
+
+app.get("*", (req , res)=>{
+    res.sendFile(path.join(__dirname, "client/build/index.html"));
+})
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () =>{
     console.log(`server running at port ${PORT}`);
