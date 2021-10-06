@@ -8,7 +8,7 @@ function ListTodos() {
    // Delete Function
 const deleteTodo = async(id) =>{
     try {
-         await fetch(`http://localhost:5000/todos/${id}`,{
+         await fetch(`https://polar-tor-57642.herokuapp.com/${id}`,{
             method: "DELETE"
         });
         
@@ -22,7 +22,7 @@ const deleteTodo = async(id) =>{
     
     const listAlltodos = async() =>{
         try {    
-           const response =  await fetch("http://localhost:5000/todos");
+           const response =  await fetch("https://polar-tor-57642.herokuapp.com/todos");
            const jsonData =  await response.json();
            setList(jsonData);
          } catch (err) {
