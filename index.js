@@ -14,7 +14,7 @@ app.use(express.json()); // allows access to req.body
 if(process.env.NODE_ENV === "production"){
     // serve static content
     // npm run build
-    app.use(express.static(path.join(__dirname, "client/build")))
+    app.use(express.static(path.join(__dirname, "client/build")));
 }
 
 
