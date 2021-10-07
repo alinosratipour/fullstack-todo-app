@@ -22,7 +22,7 @@ const deleteTodo = async(id) =>{
     
     const listAlltodos = async() =>{
         try {    
-           const response =  await fetch("https://pern-parsa-app.herokuapp.com/todos");
+           const response =  await fetch("/todos");
            const jsonData =  await response.json();
            setList(jsonData);
          } catch (err) {
