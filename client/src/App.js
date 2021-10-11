@@ -1,11 +1,12 @@
 import React,{Fragment}  from 'react';
 import InputTodo from './components/InputTodo';
 import ListTodos from './components/ListTodos';
-
+import ToDoContextProvider from './context/MyContext'
 
 function App() {
   return (
-    <Fragment >
+    <ToDoContextProvider>
+       <Fragment >
       <div className="container">
         <InputTodo/>
         <ListTodos/>
@@ -13,6 +14,8 @@ function App() {
       </div>
      
     </Fragment>
+    </ToDoContextProvider>
+   
   );
 }
 

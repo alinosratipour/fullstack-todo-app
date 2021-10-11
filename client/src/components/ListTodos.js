@@ -1,38 +1,10 @@
-import React,{Fragment,useState, useEffect} from 'react'
+import React,{Fragment,useContext} from 'react'
 import EditeTodo from './EditeTodo';
-
+import { MyContext } from '../context/MyContext';
 function ListTodos() {
-    const [list, setList] = useState([]);
 
-
-   // Delete Function
-const deleteTodo = async(id) =>{
-    try {
-         await fetch(`/todos/${id}`,{
-            method: "DELETE"
-        });
-        
-        setList(list.filter(item=> item.todo_id !== id))
-    } catch (err) {
-        console.error(err.message);
-    }
-}
-
-
-    
-    const listAlltodos = async() =>{
-        try {    
-           const response =  await fetch("/todos");
-           const jsonData =  await response.json();
-           setList(jsonData);
-         } catch (err) {
-            console.error(err.message);
-         }   
-       }
-    
-    useEffect( ()=>{
-        listAlltodos()
-    },[])
+const {todo,deleteTodo} = useContext(MyContext);
+  
     return (
         <Fragment>
                 
@@ -45,13 +17,8 @@ const deleteTodo = async(id) =>{
       </tr>
     </thead>
     <tbody>
-      {/* <tr>
-        <td>John</td>
-        <td>Doe</td>
-        <td>john@example.com</td>
-      </tr>
-      <tr> */}
-      {list.map(item =>(
+      
+      {todo.map(item =>(
        
         <tr key={item.todo_id}>
         <td>{item.description}</td>
