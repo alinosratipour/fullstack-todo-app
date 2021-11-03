@@ -24,15 +24,14 @@ function InputTodo() {
             headers:{"Content-type": "application/json"},
             body:JSON.stringify(body)
             });
-           window.location = "/" ;
+           window.location = "/Dashboard" ;
         } catch (err) {
            console.error(err.message); 
         }
     }
     return (
         <Fragment>
-            <h1 className="text-center mt-5">welcome to todo app</h1>
-       
+        
             <form className="d-flex mt-5" onSubmit={handleSubmit(onSubmitForm)}>
                 <input 
                   type="text"

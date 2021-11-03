@@ -3,53 +3,32 @@ const app = express();
 const cors = require("cors");
 const pool = require("./db");
 const path = require("path");
-
+const todos = require("./routes/todoRoutes/todosRoute.js");
+const updateTodos = require("./routes/todoRoutes/updateToDos.js");
+const postTodo = require("./routes/todoRoutes/postTodoRoute.js");
+const postUsers = require("./routes/userRoute/postUserRoute.js");
+const loginUser = require("./routes/userRoute/userLoginRoute.js");
+const dashboard = require("./routes/dashboard/dashboardRoute.js");
+const verifyAuth = require("./routes/verifyjwt");
 //middelware
 app.use(cors());
 app.use(express.json()); // allows access to req.body 
 
 //app.use(express.static("./client/build"))
 
+app.use("/", todos);
+app.use("/", updateTodos);
+app.use("/", postTodo);
+app.use("/", postUsers);
+app.use("/", loginUser);
+///app.use("/", verifyAuth);
+app.use("/", dashboard);
 
 if(process.env.NODE_ENV === "production"){
     // serve static content
     // npm run build
     app.use(express.static(path.join(__dirname, "client/build")));
 }
-
-
-//Create a todos
-
-app.post("/todos", async(req,res) =>{
-
-    try{
-
-        const {description } = req.body;
-        const newtodo = await pool.query("INSERT INTO todo (description) VALUES($1) RETURNING * ",
-        [description]
-        );
-        res.json(newtodo.rows[0]);
-    }catch(err){
-     console.error(err.message);
-    }
-
-
-})
-
-// get all todos
-
-app.get("/todos" , async(req,res) =>{
-
-try{
-
-    const listtodos = await pool.query("SELECT * FROM todo");
-    res.json(listtodos.rows);
-
-}catch(err){
-    console.error(err.message);
-}
-
-});
 
 // get a todo
 app.get("/todos/:id", async(req, res) => {
@@ -62,20 +41,7 @@ const findtodo = await pool.query("SELECT * FROM todo WHERE todo_id = $1",[id]);
 }
 
 });
-// update a todo
-app.put("/todos/:id", async (req, res)=>{
 
-    try{
-     const {id} = req.params; 
-     const {description} = req.body;  
-     const updateTodo = await pool.query("UPDATE  todo SET description = $1 WHERE todo_id = $2 ",
-     [description ,id]
-     );
-     res.json("Todo was updated");
-    }catch(err){
-        console.error(err.message);
-    }
-});
 
 // delete a todo
 app.delete("/todos/:id" , async (req, res)=>{

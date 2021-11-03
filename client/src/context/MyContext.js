@@ -32,7 +32,8 @@ function ToDoContextProvider(props){
         }
 
         useEffect( ()=>{
-            listAlltodos()
+            listAlltodos();
+
         },[])
 
     const value ={
